@@ -1,0 +1,15 @@
+lib/Frontend/CompilerInvocation.cpp:546:// nvd: setting to OnlyAlwaysInling
+lib/Frontend/CompilerInvocation.cpp:2753:// nvd turn off inline
+lib/CodeGen/CGCall.cpp:4264:  // nvd
+lib/CodeGen/CGCall.cpp:4272:  // added by nvd:
+lib/CodeGen/CGCall.cpp:4274:  std::cout << "nvd: added noinline attribute\n";
+lib/CodeGen/CodeGenModule.cpp:1247:// nvd :P ////////////////////
+lib/CodeGen/CodeGenModule.cpp:1259://nvd    commented
+lib/CodeGen/CodeGenModule.cpp:1302:  } // nvd:else if (D->hasAttr<AlwaysInlineAttr>() &&
+lib/CodeGen/CodeGenModule.cpp:1303:            //nvd:  !F->hasFnAttribute(llvm::Attribute::NoInline)) {
+lib/CodeGen/CodeGenModule.cpp:1305:    // nvd: B.addAttribute(llvm::Attribute::AlwaysInline);}
+lib/CodeGen/CodeGenModule.cpp:1335:    // }  nvd: DONT PROPAGATE INLINING!!!!
+lib/CodeGen/CodeGenModule.cpp:1338:// nvd
+lib/CodeGen/CodeGenModule.cpp:1340:std::cout << "nvd: overwritten inlining!\n";
+lib/CodeGen/CodeGenModule.cpp:2369:      return false; //nvd
+

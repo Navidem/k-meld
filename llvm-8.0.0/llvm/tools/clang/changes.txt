@@ -1,0 +1,137 @@
+disableInline.txt:1:lib/Frontend/CompilerInvocation.cpp:// nvd: setting to OnlyAlwaysInling
+disableInline.txt:2:lib/Frontend/CompilerInvocation.cpp:// nvd turn off inline
+disableInline.txt:3:lib/CodeGen/CGCall.cpp:  // nvd
+disableInline.txt:4:lib/CodeGen/CGCall.cpp:  // added by nvd:
+disableInline.txt:5:lib/CodeGen/CGCall.cpp:  std::cout << "nvd: added noinline attribute\n";
+disableInline.txt:6:lib/CodeGen/CodeGenModule.cpp:// nvd :P ////////////////////
+disableInline.txt:7:lib/CodeGen/CodeGenModule.cpp://nvd    commented
+disableInline.txt:8:lib/CodeGen/CodeGenModule.cpp:  } // nvd:else if (D->hasAttr<AlwaysInlineAttr>() &&
+disableInline.txt:9:lib/CodeGen/CodeGenModule.cpp:            //nvd:  !F->hasFnAttribute(llvm::Attribute::NoInline)) {
+disableInline.txt:10:lib/CodeGen/CodeGenModule.cpp:    // nvd: B.addAttribute(llvm::Attribute::AlwaysInline);}
+disableInline.txt:11:lib/CodeGen/CodeGenModule.cpp:    // }  nvd: DONT PROPAGATE INLINING!!!!
+disableInline.txt:12:lib/CodeGen/CodeGenModule.cpp:// nvd
+disableInline.txt:13:lib/CodeGen/CodeGenModule.cpp:std::cout << "nvd: overwritten inlining!\n";
+disableInline.txt:14:lib/CodeGen/CodeGenModule.cpp:      return false; //nvd
+test/Analysis/DeleteWithNonVirtualDtor.cpp:128:  ImplicitNV *invd = new ImplicitNVDerived(); // expected-note{{Conversion from derived to base happened here}}
+test/Analysis/DeleteWithNonVirtualDtor.cpp:129:  delete invd; // expected-warning{{Destruction of a polymorphic object with no virtual destructor}}
+test/SemaCXX/destructor.cpp:10:namespace dnvd {
+test/SemaCXX/destructor.cpp:21:    // expected-warning {{delete called on non-final 'dnvd::B' that has virtual functions but non-virtual destructor}} \
+test/SemaCXX/destructor.cpp:22:    // expected-warning {{delete called on non-final 'dnvd::D' that has virtual functions but non-virtual destructor}}
+test/SemaCXX/destructor.cpp:226:namespace dnvd { // delete-non-virtual-dtor warning
+test/SemaCXX/destructor.cpp:250:  ~simple_ptr2() { delete _ptr; } // expected-warning {{delete called on non-final 'dnvd::B' that has virtual functions but non-virtual destructor}}
+test/SemaCXX/destructor.cpp:346:    delete b; // expected-warning {{delete called on non-final 'dnvd::B' that has virtual functions but non-virtual destructor}}
+test/SemaCXX/destructor.cpp:350:    delete b; // expected-warning {{delete called on non-final 'dnvd::B' that has virtual functions but non-virtual destructor}}
+test/SemaCXX/destructor.cpp:354:    delete d; // expected-warning {{delete called on non-final 'dnvd::D' that has virtual functions but non-virtual destructor}}
+test/SemaCXX/destructor.cpp:374:  b->~B(); // expected-warning {{destructor called on non-final 'dnvd::B' that has virtual functions but non-virtual destructor}} expected-note{{qualify call to silence this warning}}
+test/SemaCXX/destructor.cpp:380:  br.~B(); // expected-warning {{destructor called on non-final 'dnvd::B' that has virtual functions but non-virtual destructor}} expected-note{{qualify call to silence this warning}}
+test/SemaCXX/destructor.cpp:383:  d->~D(); // expected-warning {{destructor called on non-final 'dnvd::D' that has virtual functions but non-virtual destructor}} expected-note{{qualify call to silence this warning}}
+test/SemaCXX/destructor.cpp:416:    simple_ptr<B> b(new B()); // expected-note {{in instantiation of member function 'dnvd::simple_ptr<dnvd::B>::~simple_ptr' requested here}}
+test/SemaCXX/destructor.cpp:420:    simple_ptr2<B> b(new D()); // expected-note {{in instantiation of member function 'dnvd::simple_ptr2<dnvd::B>::~simple_ptr2' requested here}}
+test/SemaCXX/destructor.cpp:424:    simple_ptr<D> d(new D()); // expected-note {{in instantiation of member function 'dnvd::simple_ptr<dnvd::D>::~simple_ptr' requested here}}
+test/CodeGen/builtins-x86.c:1:// RUN: %clang_cc1 -DUSE_64 -triple x86_64-unknown-unknown -target-feature +fxsr -target-feature +avx -target-feature +xsaveopt -target-feature +xsaves -target-feature +xsavec -target-feature +mwaitx -target-feature +clzero -target-feature +shstk -target-feature +wbnoinvd -target-feature +cldemote -emit-llvm -o %t %s
+test/CodeGen/builtins-x86.c:2:// RUN: %clang_cc1 -DUSE_ALL -triple x86_64-unknown-unknown -target-feature +fxsr -target-feature +avx -target-feature +xsaveopt -target-feature +xsaves -target-feature +xsavec -target-feature +mwaitx -target-feature +shstk -target-feature +clzero -target-feature +wbnoinvd -target-feature +cldemote -fsyntax-only -o %t %s
+test/CodeGen/builtins-x86.c:309:  __builtin_ia32_wbnoinvd();
+test/CodeGen/builtin-wbnoinvd.c:1:// RUN: %clang_cc1 %s -ffreestanding -triple=x86_64-unknown-unknown -target-feature +wbnoinvd -emit-llvm -o - -Wall -Werror | FileCheck %s
+test/CodeGen/builtin-wbnoinvd.c:5:void test_wbnoinvd(void) {
+test/CodeGen/builtin-wbnoinvd.c:6:  //CHECK-LABEL: @test_wbnoinvd
+test/CodeGen/builtin-wbnoinvd.c:7:  //CHECK: call void @llvm.x86.wbnoinvd()
+test/CodeGen/builtin-wbnoinvd.c:8:  _wbnoinvd();
+test/CodeGen/builtin-wbinvd.c:6:void test_wbinvd(void) {
+test/CodeGen/builtin-wbinvd.c:7:  //CHECK-LABEL: @test_wbinvd
+test/CodeGen/builtin-wbinvd.c:8:  //CHECK: call void @llvm.x86.wbinvd()
+test/CodeGen/builtin-wbinvd.c:9:  _wbinvd();
+test/Driver/x86-target-features.c:63:// RUN: %clang -target i386-unknown-linux-gnu -march=i386 -mwbnoinvd %s -### -o %t.o 2>&1 | FileCheck -check-prefix=WBNOINVD %s
+test/Driver/x86-target-features.c:64:// RUN: %clang -target i386-unknown-linux-gnu -march=i386 -mno-wbnoinvd %s -### -o %t.o 2>&1 | FileCheck -check-prefix=NO-WBNOINVD %s
+test/Driver/x86-target-features.c:65:// WBNOINVD: "-target-feature" "+wbnoinvd"
+test/Driver/x86-target-features.c:66:// NO-WBNOINVD: "-target-feature" "-wbnoinvd"
+include/clang/Basic/BuiltinsX86.def:718:TARGET_BUILTIN(__builtin_ia32_wbinvd, "v", "n", "")
+include/clang/Basic/BuiltinsX86.def:719:TARGET_BUILTIN(__builtin_ia32_wbnoinvd, "v", "n", "wbnoinvd")
+include/clang/Driver/Options.td:2783:def mwbnoinvd : Flag<["-"], "mwbnoinvd">, Group<m_x86_Features_Group>;
+include/clang/Driver/Options.td:2784:def mno_wbnoinvd : Flag<["-"], "mno-wbnoinvd">, Group<m_x86_Features_Group>;
+lib/Headers/module.modulemap:66:    textual header "wbnoinvdintrin.h"
+lib/Headers/CMakeLists.txt:105:  wbnoinvdintrin.h
+lib/Headers/ia32intrin.h:74:_wbinvd(void) {
+lib/Headers/ia32intrin.h:75:  __builtin_ia32_wbinvd();
+lib/Headers/wbnoinvdintrin.h:1:/*===-------------- wbnoinvdintrin.h - wbnoinvd intrinsic-------------------===
+lib/Headers/wbnoinvdintrin.h:25:#error "Never use <wbnoinvdintrin.h> directly; include <x86intrin.h> instead."
+lib/Headers/wbnoinvdintrin.h:32:  __attribute__((__always_inline__, __nodebug__,  __target__("wbnoinvd")))
+lib/Headers/wbnoinvdintrin.h:33:_wbnoinvd (void)
+lib/Headers/wbnoinvdintrin.h:35:  __builtin_ia32_wbnoinvd ();
+lib/Headers/intrin.h:148:void __wbinvd(void);
+lib/Headers/immintrin.h:410:#include <wbnoinvdintrin.h>
+lib/Frontend/CompilerInvocation.cpp:546:// nvd: setting to OnlyAlwaysInling
+lib/Frontend/CompilerInvocation.cpp:2753:// nvd turn off inline
+lib/CodeGen/CGCall.cpp:4264:  // nvd
+lib/CodeGen/CGCall.cpp:4272:  // added by nvd:
+lib/CodeGen/CGCall.cpp:4274:  std::cout << "nvd: added noinline attribute\n";
+lib/CodeGen/CodeGenModule.cpp:1247:// nvd :P ////////////////////
+lib/CodeGen/CodeGenModule.cpp:1259://nvd    commented
+lib/CodeGen/CodeGenModule.cpp:1302:  } // nvd:else if (D->hasAttr<AlwaysInlineAttr>() &&
+lib/CodeGen/CodeGenModule.cpp:1303:            //nvd:  !F->hasFnAttribute(llvm::Attribute::NoInline)) {
+lib/CodeGen/CodeGenModule.cpp:1305:    // nvd: B.addAttribute(llvm::Attribute::AlwaysInline);}
+lib/CodeGen/CodeGenModule.cpp:1335:    // }  nvd: DONT PROPAGATE INLINING!!!!
+lib/CodeGen/CodeGenModule.cpp:1338:// nvd
+lib/CodeGen/CodeGenModule.cpp:1340:std::cout << "nvd: overwritten inlining!\n";
+lib/CodeGen/CodeGenModule.cpp:2369:      return false; //nvd
+lib/Basic/Targets/X86.cpp:138:    setFeatureEnabledImpl(Features, "wbnoinvd", true);
+lib/Basic/Targets/X86.cpp:787:    } else if (Feature == "+wbnoinvd") {
+lib/Basic/Targets/X86.cpp:1340:      .Case("wbnoinvd", true)
+lib/Basic/Targets/X86.cpp:1420:      .Case("wbnoinvd", HasWBNOINVD)
+.svn/pristine/c7/c79529ed3b13a68816a12d56a53ad7198a7976b8.svn-base:718:TARGET_BUILTIN(__builtin_ia32_wbinvd, "v", "n", "")
+.svn/pristine/c7/c79529ed3b13a68816a12d56a53ad7198a7976b8.svn-base:719:TARGET_BUILTIN(__builtin_ia32_wbnoinvd, "v", "n", "wbnoinvd")
+.svn/pristine/d6/d674f5c84b768e81ccc7a6a664c0ba54d83eac94.svn-base:63:// RUN: %clang -target i386-unknown-linux-gnu -march=i386 -mwbnoinvd %s -### -o %t.o 2>&1 | FileCheck -check-prefix=WBNOINVD %s
+.svn/pristine/d6/d674f5c84b768e81ccc7a6a664c0ba54d83eac94.svn-base:64:// RUN: %clang -target i386-unknown-linux-gnu -march=i386 -mno-wbnoinvd %s -### -o %t.o 2>&1 | FileCheck -check-prefix=NO-WBNOINVD %s
+.svn/pristine/d6/d674f5c84b768e81ccc7a6a664c0ba54d83eac94.svn-base:65:// WBNOINVD: "-target-feature" "+wbnoinvd"
+.svn/pristine/d6/d674f5c84b768e81ccc7a6a664c0ba54d83eac94.svn-base:66:// NO-WBNOINVD: "-target-feature" "-wbnoinvd"
+.svn/pristine/47/471879195cb798fa47724825e19f8a8c948c7bc9.svn-base:105:  wbnoinvdintrin.h
+.svn/pristine/d2/d29d45b03397492cad81e39a2b680a2e71ca2801.svn-base:2783:def mwbnoinvd : Flag<["-"], "mwbnoinvd">, Group<m_x86_Features_Group>;
+.svn/pristine/d2/d29d45b03397492cad81e39a2b680a2e71ca2801.svn-base:2784:def mno_wbnoinvd : Flag<["-"], "mno-wbnoinvd">, Group<m_x86_Features_Group>;
+.svn/pristine/a6/a642c9c15ebcbdd9f50c3a02b6ba1d6881e7d224.svn-base:1:// RUN: %clang_cc1 -DUSE_64 -triple x86_64-unknown-unknown -target-feature +fxsr -target-feature +avx -target-feature +xsaveopt -target-feature +xsaves -target-feature +xsavec -target-feature +mwaitx -target-feature +clzero -target-feature +shstk -target-feature +wbnoinvd -target-feature +cldemote -emit-llvm -o %t %s
+.svn/pristine/a6/a642c9c15ebcbdd9f50c3a02b6ba1d6881e7d224.svn-base:2:// RUN: %clang_cc1 -DUSE_ALL -triple x86_64-unknown-unknown -target-feature +fxsr -target-feature +avx -target-feature +xsaveopt -target-feature +xsaves -target-feature +xsavec -target-feature +mwaitx -target-feature +shstk -target-feature +clzero -target-feature +wbnoinvd -target-feature +cldemote -fsyntax-only -o %t %s
+.svn/pristine/a6/a642c9c15ebcbdd9f50c3a02b6ba1d6881e7d224.svn-base:309:  __builtin_ia32_wbnoinvd();
+.svn/pristine/6a/6a116385380c4669190e3bed70c601e98111c886.svn-base:1:// RUN: %clang_cc1 %s -ffreestanding -triple=x86_64-unknown-unknown -target-feature +wbnoinvd -emit-llvm -o - -Wall -Werror | FileCheck %s
+.svn/pristine/6a/6a116385380c4669190e3bed70c601e98111c886.svn-base:5:void test_wbnoinvd(void) {
+.svn/pristine/6a/6a116385380c4669190e3bed70c601e98111c886.svn-base:6:  //CHECK-LABEL: @test_wbnoinvd
+.svn/pristine/6a/6a116385380c4669190e3bed70c601e98111c886.svn-base:7:  //CHECK: call void @llvm.x86.wbnoinvd()
+.svn/pristine/6a/6a116385380c4669190e3bed70c601e98111c886.svn-base:8:  _wbnoinvd();
+.svn/pristine/56/5626adab80af9759370878093d17d7846d5bcc1b.svn-base:128:  ImplicitNV *invd = new ImplicitNVDerived(); // expected-note{{Conversion from derived to base happened here}}
+.svn/pristine/56/5626adab80af9759370878093d17d7846d5bcc1b.svn-base:129:  delete invd; // expected-warning{{Destruction of a polymorphic object with no virtual destructor}}
+.svn/pristine/f7/f7cd2cd642ad5e1d77add437746bdf80454eaf46.svn-base:74:_wbinvd(void) {
+.svn/pristine/f7/f7cd2cd642ad5e1d77add437746bdf80454eaf46.svn-base:75:  __builtin_ia32_wbinvd();
+.svn/pristine/09/09acf2f280ac2fca9fa34407f8652c12b14ec10e.svn-base:10:namespace dnvd {
+.svn/pristine/09/09acf2f280ac2fca9fa34407f8652c12b14ec10e.svn-base:21:    // expected-warning {{delete called on non-final 'dnvd::B' that has virtual functions but non-virtual destructor}} \
+.svn/pristine/09/09acf2f280ac2fca9fa34407f8652c12b14ec10e.svn-base:22:    // expected-warning {{delete called on non-final 'dnvd::D' that has virtual functions but non-virtual destructor}}
+.svn/pristine/09/09acf2f280ac2fca9fa34407f8652c12b14ec10e.svn-base:226:namespace dnvd { // delete-non-virtual-dtor warning
+.svn/pristine/09/09acf2f280ac2fca9fa34407f8652c12b14ec10e.svn-base:250:  ~simple_ptr2() { delete _ptr; } // expected-warning {{delete called on non-final 'dnvd::B' that has virtual functions but non-virtual destructor}}
+.svn/pristine/09/09acf2f280ac2fca9fa34407f8652c12b14ec10e.svn-base:346:    delete b; // expected-warning {{delete called on non-final 'dnvd::B' that has virtual functions but non-virtual destructor}}
+.svn/pristine/09/09acf2f280ac2fca9fa34407f8652c12b14ec10e.svn-base:350:    delete b; // expected-warning {{delete called on non-final 'dnvd::B' that has virtual functions but non-virtual destructor}}
+.svn/pristine/09/09acf2f280ac2fca9fa34407f8652c12b14ec10e.svn-base:354:    delete d; // expected-warning {{delete called on non-final 'dnvd::D' that has virtual functions but non-virtual destructor}}
+.svn/pristine/09/09acf2f280ac2fca9fa34407f8652c12b14ec10e.svn-base:374:  b->~B(); // expected-warning {{destructor called on non-final 'dnvd::B' that has virtual functions but non-virtual destructor}} expected-note{{qualify call to silence this warning}}
+.svn/pristine/09/09acf2f280ac2fca9fa34407f8652c12b14ec10e.svn-base:380:  br.~B(); // expected-warning {{destructor called on non-final 'dnvd::B' that has virtual functions but non-virtual destructor}} expected-note{{qualify call to silence this warning}}
+.svn/pristine/09/09acf2f280ac2fca9fa34407f8652c12b14ec10e.svn-base:383:  d->~D(); // expected-warning {{destructor called on non-final 'dnvd::D' that has virtual functions but non-virtual destructor}} expected-note{{qualify call to silence this warning}}
+.svn/pristine/09/09acf2f280ac2fca9fa34407f8652c12b14ec10e.svn-base:416:    simple_ptr<B> b(new B()); // expected-note {{in instantiation of member function 'dnvd::simple_ptr<dnvd::B>::~simple_ptr' requested here}}
+.svn/pristine/09/09acf2f280ac2fca9fa34407f8652c12b14ec10e.svn-base:420:    simple_ptr2<B> b(new D()); // expected-note {{in instantiation of member function 'dnvd::simple_ptr2<dnvd::B>::~simple_ptr2' requested here}}
+.svn/pristine/09/09acf2f280ac2fca9fa34407f8652c12b14ec10e.svn-base:424:    simple_ptr<D> d(new D()); // expected-note {{in instantiation of member function 'dnvd::simple_ptr<dnvd::D>::~simple_ptr' requested here}}
+.svn/pristine/43/43f3f17e253cb154c2739a357526a64ea256fdf0.svn-base:1:/*===-------------- wbnoinvdintrin.h - wbnoinvd intrinsic-------------------===
+.svn/pristine/43/43f3f17e253cb154c2739a357526a64ea256fdf0.svn-base:25:#error "Never use <wbnoinvdintrin.h> directly; include <x86intrin.h> instead."
+.svn/pristine/43/43f3f17e253cb154c2739a357526a64ea256fdf0.svn-base:32:  __attribute__((__always_inline__, __nodebug__,  __target__("wbnoinvd")))
+.svn/pristine/43/43f3f17e253cb154c2739a357526a64ea256fdf0.svn-base:33:_wbnoinvd (void)
+.svn/pristine/43/43f3f17e253cb154c2739a357526a64ea256fdf0.svn-base:35:  __builtin_ia32_wbnoinvd ();
+.svn/pristine/f5/f5f644e68ce9895a7f164c63b8fdde8bccd2d4c8.svn-base:148:void __wbinvd(void);
+.svn/pristine/1f/1f0567b377f508c05bae0a1ce8d434be7faf30a8.svn-base:410:#include <wbnoinvdintrin.h>
+.svn/pristine/42/428666e66b29263e9159df1dd52bf0903b1f427a.svn-base:2721:.. option:: -mwbnoinvd, -mno-wbnoinvd
+.svn/pristine/49/49bc3d87df89e27715315b23fa8b4036dae3fcc6.svn-base:61:    <Reference Include="envdte, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+.svn/pristine/49/49bc3d87df89e27715315b23fa8b4036dae3fcc6.svn-base:64:    <Reference Include="envdte80, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+.svn/pristine/3e/3e9364361ed86861b779271c2a2019355260f400.svn-base:66:    textual header "wbnoinvdintrin.h"
+.svn/pristine/40/40a8138e53887b752df30125f104938a543aff1f.svn-base:138:    setFeatureEnabledImpl(Features, "wbnoinvd", true);
+.svn/pristine/40/40a8138e53887b752df30125f104938a543aff1f.svn-base:787:    } else if (Feature == "+wbnoinvd") {
+.svn/pristine/40/40a8138e53887b752df30125f104938a543aff1f.svn-base:1340:      .Case("wbnoinvd", true)
+.svn/pristine/40/40a8138e53887b752df30125f104938a543aff1f.svn-base:1420:      .Case("wbnoinvd", HasWBNOINVD)
+.svn/pristine/88/882b4b5f46ad57f6fac794afa0492dab775ac3b9.svn-base:6:void test_wbinvd(void) {
+.svn/pristine/88/882b4b5f46ad57f6fac794afa0492dab775ac3b9.svn-base:7:  //CHECK-LABEL: @test_wbinvd
+.svn/pristine/88/882b4b5f46ad57f6fac794afa0492dab775ac3b9.svn-base:8:  //CHECK: call void @llvm.x86.wbinvd()
+.svn/pristine/88/882b4b5f46ad57f6fac794afa0492dab775ac3b9.svn-base:9:  _wbinvd();
+Binary file .svn/wc.db matches
+docs/ClangCommandLineReference.rst:2721:.. option:: -mwbnoinvd, -mno-wbnoinvd
+tools/clang-format-vs/ClangFormat/ClangFormat.csproj:61:    <Reference Include="envdte, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+tools/clang-format-vs/ClangFormat/ClangFormat.csproj:64:    <Reference Include="envdte80, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
